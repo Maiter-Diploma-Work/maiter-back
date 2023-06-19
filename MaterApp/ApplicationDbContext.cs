@@ -16,12 +16,19 @@ namespace MaterApp
         {
             base.OnModelCreating(modelBuilder);
 
-            //modelBuilder.Entity<User>().HasData(
-            //    new User { Id = 1, Username = "Tom", Email = "tom@example.com", Password = "password1", FirstName = "Tom", LastName = "Smith", DateOfBirth = new DateTime(1990, 1, 1), Gender = Gender.Male },
-            //    new User { Id = 2, Username = "Bob", Email = "bob@example.com", Password = "password2", FirstName = "Bob", LastName = "Johnson", DateOfBirth = new DateTime(1985, 5, 10), Gender = Gender.Male },
-            //    new User { Id = 3, Username = "Sam", Email = "sam@example.com", Password = "password3", FirstName = "Sam", LastName = "Brown", DateOfBirth = new DateTime(1995, 9, 15), Gender = Gender.Female }
-            //);
 
+            modelBuilder.Entity<UserInterest>()
+               .HasKey(ui => new { ui.UserId, ui.InterestId }); // Определение составного ключа
+
+            modelBuilder.Entity<UserInterest>()
+                .HasOne(ui => ui.User)
+                .WithMany(u => u.UserInterests)
+                .HasForeignKey(ui => ui.UserId);
+
+            modelBuilder.Entity<UserInterest>()
+                .HasOne(ui => ui.Interest)
+                .WithMany(i => i.UserInterests)
+                .HasForeignKey(ui => ui.InterestId);
         }
     }
 }

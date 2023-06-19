@@ -4,6 +4,7 @@ using MaterApp;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MaterApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230619092434_UpdateUserPhoneField")]
+    partial class UpdateUserPhoneField
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,7 +37,12 @@ namespace MaterApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Interests");
                 });
@@ -91,48 +99,16 @@ namespace MaterApp.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("MaterApp.Models.UserInterest", b =>
-                {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("InterestId")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserId", "InterestId");
-
-                    b.HasIndex("InterestId");
-
-                    b.ToTable("UserInterest");
-                });
-
-            modelBuilder.Entity("MaterApp.Models.UserInterest", b =>
-                {
-                    b.HasOne("MaterApp.Models.Interest", "Interest")
-                        .WithMany("UserInterests")
-                        .HasForeignKey("InterestId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MaterApp.Models.User", "User")
-                        .WithMany("UserInterests")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Interest");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("MaterApp.Models.Interest", b =>
                 {
-                    b.Navigation("UserInterests");
+                    b.HasOne("MaterApp.Models.User", null)
+                        .WithMany("Interests")
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("MaterApp.Models.User", b =>
                 {
-                    b.Navigation("UserInterests");
+                    b.Navigation("Interests");
                 });
 #pragma warning restore 612, 618
         }

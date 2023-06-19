@@ -32,8 +32,10 @@ namespace MaterApp.Models
         public Gender Gender { get; set; }
 
         public string ?Address { get; set; }
-        public ICollection<Interest> Interests { get; set; }
+        public ICollection<UserInterest> UserInterests { get; set; }
         public string ?ProfilePhoto { get; set; }
+
+        public string? Phone { get; set; } = string.Empty;
 
         public void SetPassword(string password)
         {
@@ -110,9 +112,5 @@ namespace MaterApp.Models
         Other
     }
 
-    public class Interest
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-    }
+
 }

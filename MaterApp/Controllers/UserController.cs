@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MaterApp.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace MaterApp.Controllers
@@ -33,5 +34,7 @@ namespace MaterApp.Controllers
             }
             return Ok(user);
         }
+
+        
     }
 }
