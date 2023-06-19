@@ -2,6 +2,8 @@
 using MaterApp.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
 namespace MaterApp.Controllers
 {
@@ -23,6 +25,49 @@ namespace MaterApp.Controllers
             var users = _context.Users.ToList();
             return Ok(users);
         }
+
+
+        //[HttpGet("withInterests")]
+        //public ActionResult<List<int>> GetAllUsersWithInterests()
+        //{
+        //    var interestIds = _context.Users
+        //         .Include(u => u.UserInterests)
+        //         .ThenInclude(ui => ui.Interest)
+        //         .SelectMany(u => u.UserInterests.Select(ui => ui.Interest.Id))
+        //         .ToList();
+
+        //    return interestIds;
+        //}
+
+        [HttpGet("withInterests")]
+        public ActionResult<List<EditUserDTO>> GetAllUsersWithInterests()
+        {
+            var usersWithInterests = _context.Users
+                .Include(u => u.UserInterests)
+                .ThenInclude(ui => ui.Interest)
+                .Select(u => new EditUserDTO
+                {
+                    Username = u.Username,
+                    Password = u.PasswordHash,
+                    Email = u.Email,
+                    FirstName = u.FirstName,
+                    LastName = u.LastName,
+                    DateOfBirth = u.DateOfBirth,
+                    Gender = u.Gender,
+                    Address = u.Address,
+                    Phone = u.Phone,
+                    Photo = u.ProfilePhoto,
+                    Interests = u.UserInterests.Select(ui => ui.InterestId).ToList()
+                })
+                .ToList();
+
+            return usersWithInterests;
+        }
+
+
+
+
+
 
         [HttpGet("{id}")]
         public IActionResult GetUser(int id)

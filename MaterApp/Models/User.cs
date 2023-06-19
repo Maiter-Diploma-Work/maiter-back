@@ -34,8 +34,8 @@ namespace MaterApp.Models
 
         public string ?Address { get; set; }
 
-        [JsonIgnore]
-        public ICollection<UserInterest> UserInterests { get; set; }
+       
+        public virtual ICollection<UserInterest> UserInterests { get; set; }
         public string ?ProfilePhoto { get; set; }
 
         public string? Phone { get; set; } = string.Empty;
