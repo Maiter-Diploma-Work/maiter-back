@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace MaterApp.Models
 {
@@ -32,6 +33,8 @@ namespace MaterApp.Models
         public Gender Gender { get; set; }
 
         public string ?Address { get; set; }
+
+        [JsonIgnore]
         public ICollection<UserInterest> UserInterests { get; set; }
         public string ?ProfilePhoto { get; set; }
 
