@@ -22,6 +22,24 @@ namespace MaterApp.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("MaterApp.Models.BlockedUsers", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BlockedUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "BlockedUserId");
+
+                    b.HasIndex("BlockedUserId");
+
+                    b.ToTable("BlockedUsers");
+                });
+
             modelBuilder.Entity("MaterApp.Models.Interest", b =>
                 {
                     b.Property<int>("Id")
@@ -37,6 +55,29 @@ namespace MaterApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Interests");
+                });
+
+            modelBuilder.Entity("MaterApp.Models.Like", b =>
+                {
+                    b.Property<int>("LikerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LikeeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LikeId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("LikerId", "LikeeId");
+
+                    b.HasIndex("LikeeId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Likes");
                 });
 
             modelBuilder.Entity("MaterApp.Models.User", b =>
@@ -106,6 +147,48 @@ namespace MaterApp.Migrations
                     b.ToTable("UserInterest");
                 });
 
+            modelBuilder.Entity("MaterApp.Models.BlockedUsers", b =>
+                {
+                    b.HasOne("MaterApp.Models.User", "BlockedUser")
+                        .WithMany()
+                        .HasForeignKey("BlockedUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("MaterApp.Models.User", "User")
+                        .WithMany("BlockedUsers")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("BlockedUser");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MaterApp.Models.Like", b =>
+                {
+                    b.HasOne("MaterApp.Models.User", "Likee")
+                        .WithMany()
+                        .HasForeignKey("LikeeId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("MaterApp.Models.User", "Liker")
+                        .WithMany()
+                        .HasForeignKey("LikerId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("MaterApp.Models.User", null)
+                        .WithMany("LikedByUsers")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Likee");
+
+                    b.Navigation("Liker");
+                });
+
             modelBuilder.Entity("MaterApp.Models.UserInterest", b =>
                 {
                     b.HasOne("MaterApp.Models.Interest", "Interest")
@@ -132,6 +215,10 @@ namespace MaterApp.Migrations
 
             modelBuilder.Entity("MaterApp.Models.User", b =>
                 {
+                    b.Navigation("BlockedUsers");
+
+                    b.Navigation("LikedByUsers");
+
                     b.Navigation("UserInterests");
                 });
 #pragma warning restore 612, 618

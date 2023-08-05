@@ -10,9 +10,17 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
+// Регистрация сервиса UserService
+builder.Services.AddScoped<UserService>(serviceProvider =>
+{
+    var dbContext = serviceProvider.GetRequiredService<ApplicationDbContext>();
+    return new UserService(dbContext);
+});
+
 
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection));
+
 
 
 // Добавьте IHttpContextAccessor в коллекцию служб
@@ -69,6 +77,7 @@ app.UseAuthorization();
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
+
 
 
 app.Run();

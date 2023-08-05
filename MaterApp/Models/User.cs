@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
@@ -36,9 +37,20 @@ namespace MaterApp.Models
 
        
         public virtual ICollection<UserInterest> UserInterests { get; set; }
+   
+        public virtual ICollection<BlockedUsers> BlockedUsers { get; set; }
+
+        [InverseProperty("Likee")]
+        public ICollection<Like> LikedByUsers { get; set; }
+
         public string ?ProfilePhoto { get; set; }
 
         public string? Phone { get; set; } = string.Empty;
+
+        public User()
+        {
+            BlockedUsers = new List<BlockedUsers>();
+        }
 
         public void SetPassword(string password)
         {

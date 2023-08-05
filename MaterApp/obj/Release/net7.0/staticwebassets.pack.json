@@ -1,0 +1,25 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\Bogdan\\Desktop\\TinderPro\\MaterApp\\MaterApp\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "obj\\Release\\net7.0\\staticwebassets\\msbuild.MaterApp.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Release\\net7.0\\staticwebassets\\msbuild.build.MaterApp.props",
+      "PackagePath": "build\\MaterApp.props"
+    },
+    {
+      "Id": "obj\\Release\\net7.0\\staticwebassets\\msbuild.buildMultiTargeting.MaterApp.props",
+      "PackagePath": "buildMultiTargeting\\MaterApp.props"
+    },
+    {
+      "Id": "obj\\Release\\net7.0\\staticwebassets\\msbuild.buildTransitive.MaterApp.props",
+      "PackagePath": "buildTransitive\\MaterApp.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
