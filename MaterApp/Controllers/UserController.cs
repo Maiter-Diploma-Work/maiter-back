@@ -28,8 +28,6 @@ namespace MaterApp.Controllers
             //var userService = HttpContext.RequestServices.GetRequiredService<UserService>();
             // await userService.SyncUsersWithElasticsearch();
 
-
-
             var users = await _context.Users.ToListAsync();
             return Ok(users);
 
@@ -63,17 +61,55 @@ namespace MaterApp.Controllers
             return usersWithInterests;
         }
 
+        //[HttpGet("{id}")]
+        //public IActionResult GetUser(int id)
+        //{
+        //    var user = _context.Users.Find(id);
+
+        //    if (user == null)
+        //    {
+        //        return NotFound("We have no user with such id!");
+        //    }
+        //    return Ok(user);
+        //}
+
         [HttpGet("{id}")]
         public IActionResult GetUser(int id)
         {
-            var user = _context.Users.Find(id);
+            var user = _context.Users
+         .Include(u => u.UserInterests)
+         .ThenInclude(ui => ui.Interest)
+         .Include(u => u.BlockedUsers)
+         .ThenInclude(bu => bu.BlockedUser)
+         .SingleOrDefault(u => u.Id == id);
 
             if (user == null)
             {
                 return NotFound("We have no user with such id!");
             }
-            return Ok(user);
+
+            var userDetails = new EditUserDTO
+            {
+                Username = user.Username,
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                DateOfBirth = user.DateOfBirth,
+                Gender = user.Gender,
+                Address = user.Address,
+                Phone = user.Phone,
+                Photo = user.ProfilePhoto,
+                Interests = user.UserInterests.Select(ui => ui.InterestId).ToList(),
+                BlockedUsers = user.BlockedUsers.Select(bu => new BlockedUserDTO
+                {
+                    BlockedUserId = bu.BlockedUserId
+                }).ToList()
+            };
+
+            return Ok(userDetails);
         }
+
+
 
         [HttpPut("{id}")]
         public IActionResult UpdateUser(int id, EditUserDTO updatedUser)
@@ -185,6 +221,39 @@ namespace MaterApp.Controllers
             }
 
             return BadRequest("The user has already been liked.");
+        }
+
+
+
+        [HttpGet("withInterestsAndBlockedUsers")]
+        public ActionResult<List<EditUserDTO>> GetAllUsersWithInterestsAndBlockedUsers()
+        {
+            var usersWithInterestsAndBlockedUsers = _context.Users
+                .Include(u => u.UserInterests)
+                .ThenInclude(ui => ui.Interest)
+                .Include(u => u.BlockedUsers)
+                .ThenInclude(bu => bu.BlockedUser)
+                .Select(u => new EditUserDTO
+                {
+                    Username = u.Username,
+                    Password = u.PasswordHash,
+                    Email = u.Email,
+                    FirstName = u.FirstName,
+                    LastName = u.LastName,
+                    DateOfBirth = u.DateOfBirth,
+                    Gender = u.Gender,
+                    Address = u.Address,
+                    Phone = u.Phone,
+                    Photo = u.ProfilePhoto,
+                    Interests = u.UserInterests.Select(ui => ui.InterestId).ToList(),
+                    BlockedUsers = u.BlockedUsers.Select(bu => new BlockedUserDTO
+                    {
+                        BlockedUserId = bu.BlockedUserId,
+                    }).ToList()
+                })
+                .ToList();
+
+            return usersWithInterestsAndBlockedUsers;
         }
 
 

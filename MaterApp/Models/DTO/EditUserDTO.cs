@@ -18,5 +18,6 @@
         public string Phone { get; set; }
         public string Photo { get; set; }
         public List<int> Interests { get; set; }
+        public List<BlockedUserDTO> BlockedUsers { get; set; }
     }
 }
