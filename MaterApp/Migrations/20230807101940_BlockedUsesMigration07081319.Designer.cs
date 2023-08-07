@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MaterApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230804095518_BlockedUsersMigration")]
-    partial class BlockedUsersMigration
+    [Migration("20230807101940_BlockedUsesMigration07081319")]
+    partial class BlockedUsesMigration07081319
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,21 +27,18 @@ namespace MaterApp.Migrations
 
             modelBuilder.Entity("MaterApp.Models.BlockedUsers", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("BlockedUserId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
+                    b.Property<int>("Id")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("UserId", "BlockedUserId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("BlockedUserId");
 
                     b.ToTable("BlockedUsers");
                 });
@@ -61,6 +58,29 @@ namespace MaterApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Interests");
+                });
+
+            modelBuilder.Entity("MaterApp.Models.Like", b =>
+                {
+                    b.Property<int>("LikerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LikeeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LikeId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("LikerId", "LikeeId");
+
+                    b.HasIndex("LikeeId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Likes");
                 });
 
             modelBuilder.Entity("MaterApp.Models.User", b =>
@@ -132,11 +152,44 @@ namespace MaterApp.Migrations
 
             modelBuilder.Entity("MaterApp.Models.BlockedUsers", b =>
                 {
-                    b.HasOne("MaterApp.Models.User", null)
+                    b.HasOne("MaterApp.Models.User", "BlockedUser")
+                        .WithMany()
+                        .HasForeignKey("BlockedUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("MaterApp.Models.User", "User")
                         .WithMany("BlockedUsers")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("BlockedUser");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MaterApp.Models.Like", b =>
+                {
+                    b.HasOne("MaterApp.Models.User", "Likee")
+                        .WithMany()
+                        .HasForeignKey("LikeeId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("MaterApp.Models.User", "Liker")
+                        .WithMany()
+                        .HasForeignKey("LikerId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("MaterApp.Models.User", null)
+                        .WithMany("LikedByUsers")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Likee");
+
+                    b.Navigation("Liker");
                 });
 
             modelBuilder.Entity("MaterApp.Models.UserInterest", b =>
@@ -166,6 +219,8 @@ namespace MaterApp.Migrations
             modelBuilder.Entity("MaterApp.Models.User", b =>
                 {
                     b.Navigation("BlockedUsers");
+
+                    b.Navigation("LikedByUsers");
 
                     b.Navigation("UserInterests");
                 });

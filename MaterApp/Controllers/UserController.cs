@@ -24,11 +24,17 @@ namespace MaterApp.Controllers
         [HttpGet]
         public async Task<IActionResult> GetUsers()
         {
-            var userService = HttpContext.RequestServices.GetRequiredService<UserService>();
-           // await userService.SyncUsersWithElasticsearch();
+            //Not need
+            //var userService = HttpContext.RequestServices.GetRequiredService<UserService>();
+            // await userService.SyncUsersWithElasticsearch();
+
+
 
             var users = await _context.Users.ToListAsync();
             return Ok(users);
+
+            //var users = await _context.Users.Include(u => u.BlockedUsers).ToListAsync();
+           // return Ok(users);
         }
 
 
@@ -136,12 +142,16 @@ namespace MaterApp.Controllers
             // Проверяем, что пользователь еще не заблокирован
             if (!user.BlockedUsers.Any(bu => bu.BlockedUserId == blockedUserId))
             {
+                // Не указываем значение для столбца Id
                 user.BlockedUsers.Add(new BlockedUsers { BlockedUserId = blockedUserId });
                 _context.SaveChanges();
             }
 
-            return Ok();
+            return NoContent();
         }
+
+
+
 
 
 
