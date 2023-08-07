@@ -11,11 +11,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 // Регистрация сервиса UserService
-builder.Services.AddScoped<UserService>(serviceProvider =>
-{
-    var dbContext = serviceProvider.GetRequiredService<ApplicationDbContext>();
-    return new UserService(dbContext);
-});
+//builder.Services.AddScoped<UserService>(serviceProvider =>
+//{
+//    var dbContext = serviceProvider.GetRequiredService<ApplicationDbContext>();
+//    return new UserService(dbContext);
+//});
 
 
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");

@@ -13,12 +13,11 @@ namespace MaterApp.Controllers
     public class UserController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserService _userService;
+        //private readonly UserService _userService;
 
-        public UserController(ApplicationDbContext context, UserService userService)
+        public UserController(ApplicationDbContext context)
         {
             _context = context;
-            _userService = userService;
         }
 
         [HttpGet]
@@ -32,8 +31,11 @@ namespace MaterApp.Controllers
             return Ok(users);
 
             //var users = await _context.Users.Include(u => u.BlockedUsers).ToListAsync();
-           // return Ok(users);
+            // return Ok(users);
         }
+
+     
+
 
 
         [HttpGet("withInterests")]
@@ -153,14 +155,14 @@ namespace MaterApp.Controllers
             return Ok(user);
         }
 
-        [HttpGet]
-        [Route("search")]
-        public async Task<IActionResult> SearchUsers(string partialName)
-        {
-            var users = await _userService.PartialSearchByName(partialName);
+        //[HttpGet]
+        //[Route("search")]
+        //public async Task<IActionResult> SearchUsers(string partialName)
+        //{
+        //    var users = await _userService.PartialSearchByName(partialName);
 
-            return Ok(users); // Возвращаем найденных пользователей в виде HTTP-ответа
-        }
+        //    return Ok(users); // Возвращаем найденных пользователей в виде HTTP-ответа
+        //}
 
 
         //NEED TEST
