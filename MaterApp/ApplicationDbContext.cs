@@ -10,6 +10,8 @@ namespace MaterApp
         public DbSet<Like> Likes { get; set; }
         public DbSet<BlockedUsers> BlockedUsers { get; set; } // Добавьте DbSet для BlockedUsers
 
+        public DbSet<City> Cities { get; set; } 
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
             Database.EnsureCreated();
@@ -61,6 +63,14 @@ namespace MaterApp
                 .WithMany()
                 .HasForeignKey(bu => bu.BlockedUserId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+
+            modelBuilder.Entity<City>()
+                .HasKey(c => c.Id);
+
+            modelBuilder.Entity<City>()
+                .Property(c => c.Name)
+                .IsRequired();
         }
     }
 }

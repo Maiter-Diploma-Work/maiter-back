@@ -13,7 +13,7 @@ namespace MaterApp.Models
         public int Id { get; set; }
 
         [Required]
-        public string Username { get; set; }
+        public string ? Username { get; set; }
 
         [Required]
         public string PasswordHash { get; set; } = string.Empty;
@@ -24,14 +24,12 @@ namespace MaterApp.Models
         [Required]
         public string Email { get; set; }
 
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string ?FirstName { get; set; }
+        public string ? LastName { get; set; }
 
-        [Required]
-        public DateTime DateOfBirth { get; set; }
+        public DateTime ? DateOfBirth { get; set; }
 
-        [Required]
-        public Gender Gender { get; set; }
+        public Gender ? Gender { get; set; }
 
         public string ?Address { get; set; }
 

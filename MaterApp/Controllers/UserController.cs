@@ -155,14 +155,6 @@ namespace MaterApp.Controllers
             return Ok(user);
         }
 
-        //[HttpGet]
-        //[Route("search")]
-        //public async Task<IActionResult> SearchUsers(string partialName)
-        //{
-        //    var users = await _userService.PartialSearchByName(partialName);
-
-        //    return Ok(users); // Возвращаем найденных пользователей в виде HTTP-ответа
-        //}
 
 
         //NEED TEST

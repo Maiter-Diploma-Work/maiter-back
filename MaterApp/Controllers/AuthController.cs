@@ -54,11 +54,17 @@ namespace MaterApp.Controllers
             }
 
             //Проверка учетных данных
-            var user = _context.Users.FirstOrDefault(u => u.Email == userToLogin.Email);
+            var user = _context.Users.FirstOrDefault(u => u.Username == userToLogin.Login);
 
             if (user == null || !user.VerifyPassword(userToLogin.Password))
             {
                 return Unauthorized("Invalid email or password");
+            }
+
+            // Проверка заполненности профиля
+            if (string.IsNullOrEmpty(user.FirstName) || string.IsNullOrEmpty(user.LastName))
+            {
+                return Unauthorized("Profile is not filled. Please complete your profile before logging in.");
             }
 
             // Создание списка утверждений (claims)
@@ -93,7 +99,7 @@ namespace MaterApp.Controllers
             var response = new
             {
                 access_token = token,
-                username = userToLogin.Email
+                username = userToLogin.Login
             };
 
             return Json(response);
