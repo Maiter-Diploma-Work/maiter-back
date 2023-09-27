@@ -4,8 +4,10 @@ using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
@@ -64,6 +66,8 @@ builder.Services.AddSession(options =>
 
 
 var app = builder.Build();
+
+
 
 // получение данных
 //app.MapGet("/", (ApplicationDbContext db) => db.Users.ToList());

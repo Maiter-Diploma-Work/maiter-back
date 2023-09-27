@@ -1,6 +1,14 @@
 ﻿using MaterApp.Models;
 using MaterApp.Models.DTO;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.OAuth;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace MaterApp.Controllers
 {
@@ -11,11 +19,14 @@ namespace MaterApp.Controllers
         private readonly IConfiguration _configuration;
         private readonly ApplicationDbContext _context;
 
-        public RegistrationController(IConfiguration configuration, ApplicationDbContext context)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public RegistrationController(IConfiguration configuration, ApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
         {
             _configuration = configuration;
             _context = context;
+            _httpContextAccessor = httpContextAccessor;
         }
+
 
         [HttpPost("register")]
         public IActionResult Register(RegisterUserDTO model)
@@ -49,27 +60,49 @@ namespace MaterApp.Controllers
             {
                 Username = model.Username,
                 Email = model.Email,
-                //FirstName = model.FirstName,
-                //LastName = model.LastName,
-                //DateOfBirth = model.DateOfBirth,
-                //Gender = model.Gender,
-                //Address = model.Address
             };
 
             // Установка пароля пользователя
 
             user.SetPassword(model.Password);
 
-
             // Сохранение пользователя в базе данных
 
             _context.Users.Add(user);
             _context.SaveChanges();
 
-            // Возвращаем успешный результат
+            var claims = new[]
+           {
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Email, user.Email),              
+            };
 
-            return Ok("User registered successfully");
+            var issuer = _configuration["AuthOptions:Issuer"];
+            var audience = _configuration["AuthOptions:Audience"];
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["AuthOptions:Key"]));
+
+            // Создание JWT-токена
+
+            var jwt = new JwtSecurityToken(
+                issuer: issuer,
+                audience: audience,
+                claims: claims,
+                expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(2)), // Измените срок действия токена по вашему усмотрению
+                signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256));
+
+            var token = new JwtSecurityTokenHandler().WriteToken(jwt);
+
+            var response = new
+            {
+                access_token = token,
+                username = user.Username
+            };
+
+            return Ok(response);
         }
+
+
     }
+
 
 }

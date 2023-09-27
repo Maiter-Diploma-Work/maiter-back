@@ -25,25 +25,6 @@ namespace MaterApp.Controllers
             _httpContextAccessor = httpContextAccessor;
         }
 
-        //[HttpGet("Login/{username}")]
-        //public IActionResult Login(string username)
-        //{
-        //    var claims = new List<Claim> { new Claim(ClaimTypes.Name, username) };
-        //    var issuer = _configuration["AuthOptions:Issuer"];
-        //    var audience = _configuration["AuthOptions:Audience"];
-        //    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["AuthOptions:Key"]));
-
-        //    var jwt = new JwtSecurityToken(
-        //        issuer: issuer,
-        //        audience: audience,
-        //        claims: claims,
-        //        expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(2)),
-        //        signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256));
-
-        //    var token = new JwtSecurityTokenHandler().WriteToken(jwt);
-
-        //    return Ok(token);
-        //}
 
         [HttpPost("login")]
         public IActionResult Login(LoginUserDTO userToLogin)
@@ -54,7 +35,7 @@ namespace MaterApp.Controllers
             }
 
             //Проверка учетных данных
-            var user = _context.Users.FirstOrDefault(u => u.Username == userToLogin.Login);
+            var user = _context.Users.FirstOrDefault(u => u.Email == userToLogin.Login);
 
             if (user == null || !user.VerifyPassword(userToLogin.Password))
             {
@@ -73,6 +54,7 @@ namespace MaterApp.Controllers
            {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Email, user.Email),
+                
                 // Другие утверждения по желанию
             };
 
@@ -90,11 +72,6 @@ namespace MaterApp.Controllers
                 signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256));
 
             var token = new JwtSecurityTokenHandler().WriteToken(jwt);
-
-            //Сохранение токена в сеансе
-            //_httpContextAccessor.HttpContext.Session.SetString("AuthToken", token);
-
-            // Возвращаем JWT-токен
 
             var response = new
             {

@@ -19,5 +19,22 @@ namespace MaterApp.Controllers
             var interests = await _context.Interests.ToListAsync();
             return Ok(interests);
         }
+
+        [HttpGet("search")]
+        public async Task<IActionResult> GetInterestsName(string searchQuery)
+        {
+            //выполняем запрос к БД, чтобы получить интересы, начинающиеся с searchQuery
+            //var matchingInterests = _context.Interests
+            //    .Where(i => i.Name.StartsWith(searchQuery))
+            //    .Select(i => i.Name)
+            //    .ToList();
+
+            var matchingInterests = _context.Interests
+                 .Where(i => i.Name.Contains(searchQuery))
+                 .Select(i => i.Name)
+                 .ToList();
+
+            return Ok(matchingInterests);
+        }
     }
 }

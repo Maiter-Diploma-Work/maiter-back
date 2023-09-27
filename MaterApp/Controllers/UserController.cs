@@ -34,7 +34,33 @@ namespace MaterApp.Controllers
             // return Ok(users);
         }
 
-     
+
+        [HttpPost("addInterestToUser")]
+        public IActionResult AddInterestToUser(int userId, int interestId)
+        {
+            var user = _context.Users.Include(u => u.UserInterests).FirstOrDefault(u => u.Id == userId);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var interest = _context.Interests.Find(interestId);
+            if (interest == null) {
+                return NotFound();
+            }
+
+            //проверка, что у пользователя еще нет этого интереса
+            if (user.UserInterests.Any(ui=> ui.InterestId == interestId))
+            {
+                return BadRequest("User has already this interest!");
+            }
+
+            user.UserInterests.Add(new UserInterest() { InterestId= interestId });
+            _context.SaveChanges();
+            return Ok("Interest added to user!");
+        }
+
+        
 
 
 
