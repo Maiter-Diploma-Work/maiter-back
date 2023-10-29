@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "fLMSDFnl55w3tqiIr0AS7+6tuTYYKPn7xPOJC3oCyJk=",
+  "Hash": "Ers7pc2HxkGJarabrIBqfhfZPxAmanmNTJozDt/Axkw=",
   "Source": "MaterApp",
   "BasePath": "_content/MaterApp",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "MaterApp\\wwwroot",
       "Source": "MaterApp",
-      "ContentRoot": "C:\\Users\\Bogdan\\Desktop\\TinderPro\\MaterApp\\MaterApp\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Bogdan\\Desktop\\Tinder_project\\TinderPro\\MaterApp\\MaterApp\\wwwroot\\",
       "BasePath": "_content/MaterApp",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\Bogdan\\Desktop\\TinderPro\\MaterApp\\MaterApp\\wwwroot\\index.html",
+      "Identity": "C:\\Users\\Bogdan\\Desktop\\Tinder_project\\TinderPro\\MaterApp\\MaterApp\\wwwroot\\index.html",
       "SourceId": "MaterApp",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Bogdan\\Desktop\\TinderPro\\MaterApp\\MaterApp\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Bogdan\\Desktop\\Tinder_project\\TinderPro\\MaterApp\\MaterApp\\wwwroot\\",
       "BasePath": "_content/MaterApp",
       "RelativePath": "index.html",
       "AssetKind": "All",

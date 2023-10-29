@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "jImlphC0A1nb7WC+Bkiy9ljN751FUD9CzyNgOfSXnjicbzuRKYPEkfNBUk7J0Y6hJdWfRtVWHe2wZE/rmun4pw==",
+  "dgSpecHash": "ofhoXCG2MqXBaRsq1BNjOWkmQ9TMlFeJRoy/yDMYrfPF2/4BuU+v+frvJ44W9Bc9PrChfWnUVE1kHL2DdD3g1w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Bogdan\\Desktop\\TinderPro\\MaterApp\\MaterApp\\MaterApp.csproj",
+  "projectFilePath": "C:\\Users\\Bogdan\\Desktop\\Tinder_project\\TinderPro\\MaterApp\\MaterApp\\MaterApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Bogdan\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\Bogdan\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",

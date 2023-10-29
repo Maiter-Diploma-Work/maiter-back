@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Bogdan\\Desktop\\TinderPro\\MaterApp\\MaterApp\\MaterApp.csproj": {}
+    "C:\\Users\\Bogdan\\Desktop\\Tinder_project\\TinderPro\\MaterApp\\MaterApp\\MaterApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Bogdan\\Desktop\\TinderPro\\MaterApp\\MaterApp\\MaterApp.csproj": {
+    "C:\\Users\\Bogdan\\Desktop\\Tinder_project\\TinderPro\\MaterApp\\MaterApp\\MaterApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Bogdan\\Desktop\\TinderPro\\MaterApp\\MaterApp\\MaterApp.csproj",
+        "projectUniqueName": "C:\\Users\\Bogdan\\Desktop\\Tinder_project\\TinderPro\\MaterApp\\MaterApp\\MaterApp.csproj",
         "projectName": "MaterApp",
-        "projectPath": "C:\\Users\\Bogdan\\Desktop\\TinderPro\\MaterApp\\MaterApp\\MaterApp.csproj",
+        "projectPath": "C:\\Users\\Bogdan\\Desktop\\Tinder_project\\TinderPro\\MaterApp\\MaterApp\\MaterApp.csproj",
         "packagesPath": "C:\\Users\\Bogdan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Bogdan\\Desktop\\TinderPro\\MaterApp\\MaterApp\\obj\\",
+        "outputPath": "C:\\Users\\Bogdan\\Desktop\\Tinder_project\\TinderPro\\MaterApp\\MaterApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Bogdan\\AppData\\Roaming\\NuGet\\NuGet.Config",
