@@ -150,3 +150,5 @@ C:\Users\Bogdan\Desktop\Tinder_project\TinderPro\MaterApp\MaterApp\obj\Debug\net
 C:\Users\Bogdan\Desktop\Tinder_project\TinderPro\MaterApp\MaterApp\obj\Debug\net7.0\MaterApp.pdb
 C:\Users\Bogdan\Desktop\Tinder_project\TinderPro\MaterApp\MaterApp\obj\Debug\net7.0\MaterApp.genruntimeconfig.cache
 C:\Users\Bogdan\Desktop\Tinder_project\TinderPro\MaterApp\MaterApp\obj\Debug\net7.0\ref\MaterApp.dll
+C:\Users\Bogdan\Desktop\Tinder_project\TinderPro\MaterApp\MaterApp\bin\Debug\net7.0\AutoMapper.dll
+C:\Users\Bogdan\Desktop\Tinder_project\TinderPro\MaterApp\MaterApp\bin\Debug\net7.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

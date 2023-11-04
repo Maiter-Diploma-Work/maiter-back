@@ -1,29 +1,36 @@
 ﻿namespace MaterApp.Models.DTO
 {
+    public class CharacterTraitDTO
+    {
+        public int Id { get; set; }
+        public int UserId { get; set; }
+        public string BottomName { get; set; }
+        public string TopName { get; set; }
+        public int Degree { get; set; }
+    }
+
+    public class GoalsDTO
+    {
+        public bool Friends { get; set; }
+        public bool Love { get; set; }
+        public bool Adventure { get; set; }
+    }
+
     public class RegisterPersonalInfoDTO
     {
         public string Name { get; set; }
-        public string BirthDate { get; set; }
+        public DateTime? Birthdate { get; set; }
         public string Gender { get; set; }
-        public string Education { get; set; }
+        public List<double> Location { get; set; }
         public double Height { get; set; }
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
-        public string City { get; set; }
+        public string Education { get; set; }
         public string BIO { get; set; }
-        public int Temperament { get; set; }
-        public int ThinkingType { get; set; } //тип мышления
-        public int Availability { get; set; } //свободен/занят
-        public int OrganizedOrNot { get; set; } //организованный/нет
-        public int Independency { get; set; } //ком.игрок/незав-й
-        public int ActivityLevel { get; set; } //уровень активности
-        public int Riskiness { get; set; } //рискованный/нет
-        public string Status { get; set; } 
+        public List<CharacterTraitDTO> CharacterTraits { get; set; }
+        public GoalsDTO Goals { get; set; }
+        public string Status { get; set; }
         public string LookingFor { get; set; }
-        public bool FriendGoal { get; set; }
-        public bool LoveGoal { get; set; }
-        public bool AdventureGoal { get; set; }
         public List<string> Expectations { get; set; }
         public List<string> Interests { get; set; }
+        public string FavoriteSong { get; set; }
     }
 }

@@ -64,6 +64,7 @@ builder.Services.AddSession(options =>
 
 
 
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 var app = builder.Build();
 

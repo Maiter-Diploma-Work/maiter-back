@@ -19,6 +19,15 @@ namespace MaterApp.Controllers
         public bool isFilled { get; set; }
     }
 
+    public class CharacterTraits
+    {
+        public int Id { get; set; }
+        public int UserId { get; set; }
+        public string BottomName { get; set; }
+        public string TopName { get; set; }
+        public int Degree { get; set; }
+    }
+
     [ApiController]
     [Route("api/auth")]
     public class RegistrationController : ControllerBase
@@ -178,6 +187,7 @@ namespace MaterApp.Controllers
             {
                 return BadRequest();
             }
+
             return Ok(200);
         }
 
